@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>소개팅 프로필</title>
+<style>
+:root{--bg:#faf7f5;--card:#fff;--text:#2b2523;--muted:#8a7f7a;--line:#eadfd9;--accent:#e0567a;--soft:#fde8ee;--m:#5b8def;--f:#e0567a}
+@media (prefers-color-scheme:dark){:root{--bg:#1c1918;--card:#272322;--text:#f1ebe8;--muted:#a59a95;--line:#3a3432;--accent:#f0789a;--soft:#40262e;--m:#7ba5f5;--f:#f0789a}}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 "Pretendard","Malgun Gothic","Apple SD Gothic Neo",sans-serif}
+h1{font-size:19px;margin:0}.sub{color:var(--muted);font-size:13px}
+.lock{min-height:100vh;display:grid;place-items:center;padding:16px}
+.lock form{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;width:min(360px,100%);display:flex;flex-direction:column;gap:10px}
+input,select,button{font:inherit;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 11px;max-width:100%}
+button{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;cursor:pointer}button:disabled{opacity:.6}
+.err{color:#d0443e;font-size:13px;margin:0;min-height:1em}
+main{max-width:1080px;margin:0 auto;padding:16px}
+header{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin-bottom:14px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}.bar input{flex:1;min-width:160px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.top{display:flex;gap:12px;align-items:center;margin-bottom:4px}
+.av{width:64px;height:64px;border-radius:50%;flex:none;object-fit:cover;display:grid;place-items:center;color:#fff;font-weight:700;font-size:22px}
+.av.M{background:var(--m)}.av.F{background:var(--f)}
+.name{font-weight:700;font-size:16px}
+.chip{display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;background:var(--soft);color:var(--accent);font-weight:600}
+.k{color:var(--muted);font-size:12px;margin-right:6px}
+.empty{text-align:center;color:var(--muted);padding:40px 0;grid-column:1/-1}</style>
+</head>
+<body>
+<div id="lock" class="lock"><form id="f">
+  <h1>💌 소개팅 프로필</h1>
+  <div class="sub">전달받은 비밀번호를 입력하세요.</div>
+  <input type="password" id="pw" autocomplete="current-password" required autofocus>
+  <button>열기</button>
+  <p id="err" class="err"></p>
+</form></div>
+<main id="app" hidden>
+  <header><h1>💌 소개팅 프로필</h1><span class="sub" id="count"></span><span class="sub">업데이트 2026-11-17</span></header>
+  <div class="bar">
+    <input type="search" id="q" placeholder="이름, 직업, 지역, 학력, 취미로 검색">
+    <select id="g"><option value="">성별 전체</option><option value="F">여성</option><option value="M">남성</option></select>
+  </div>
+  <div id="grid" class="grid"></div>
+</main>
+<script type="application/json" id="data">{"it":600000,"salt":"n3xbfZ36ZiCBVBsffTQ86A==","iv":"0BGg/54msaGqfFut","ct":"rHCXfEZVGuwks3TBwx5kSyjqVvEIVDH0kZxe03tnkpvUqYAV0bqYtRrkzwPJSLcfA3Q6LNZBto81jT0rzoU8D9OcR8dPQU3v88rYmZg3bcRcTb+iESQzf04nsfzIEcff9e6pic1arOLRuFx/ZkmwNcSQhwQJue3+xyoah4CcxzmNjbEA3R3lcEpspJzVjXIZ0HQQVFcw71SbhloG/NhlkrMASEgam3RY0rgstUwxppvzAQzybHhefqnEsWb3MgND6iSDCjFgXF0d3Sz+6B7kmDmv6sFOVZihKZPRP2qZf9x54TihV6r6JvL2YOvrGMPJtUuxbMhVcV5UVAg78cpXenfOgUYxhPhzTkin/YAXi+sq32aBHfYEUKxdeUQiVrqf4CYu+u2snvmrCrKI6lU6TXKxgPNQmXVcyIp5dM5s7rTmvdGZxA5cU5LaIKyNE0pBhjdhZkX7Xnqg6HXB9+Ja3fPfYG079df+ziRb7WNuyOigdNKWLo2Pf5ZjaREnrjRGAm7wD0MD2Bf1ehZO/ZM063nPrTd9wmW5JwdtkHuvUcOYHX+vJGtuvxhbo/AApSHiitDI1cEGGQ/IH2lu6LSJ584ElFPAUduzhFJaWosaiY65epi7Lk5nQRaemGKnq7wHvavl4BTDDivqwnEpD8KjacR0XJt+YFuDRpZPORX7mNEtmbEIAY75JK8o8KE9i4/a7w5LYvot8lSrJ8PrG01ll5Y4yByHPkZNiIj7S35RHdo4tGklhtM+gXDYS9NwPZb78Nrfrv71De2ahoYNUyZ4PmvxFgLEvrp+l+ky3mcW/17cb49sGuGXNjX2PTPxaOq3VXYnbfVSXhjn2fuO8wscYxHaQKfC/rlK8ACcf/VpYr3wjoaoI+kgNoE5XEA2vBu1UBoOq+BL2++BKCtJRu0LWbJuAle/F2V603r6zN83zfw39Zfq2RJ31GTqHRguwMxRjoAUj06M28CtlyDckJcgVk0ZnFZY2LiXZeSkWER52nJeuKRXKz9UyrHQt34c+ZyFueSyTWG3oYTEk75E0TQ42XvrJL4Abc6Jcb+yOhSTZIOHl/kR9tGBt3vzx7IZPqArScBd4vTPIt0jew=="}</script>
+<script>(function shareViewer() {
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const bytes = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+  const box = JSON.parse($('#data').textContent);
+  let people = [];
+  async function unlock(pw) {
+    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+    const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: bytes(box.salt), iterations: box.it, hash: 'SHA-256' },
+      base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+    const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: bytes(box.iv) }, key, bytes(box.ct));
+    return JSON.parse(new TextDecoder().decode(plain));
+  }
+  const yy = p => p.birthYear ? String(p.birthYear).slice(-2) + '년생' : '';
+  const line = (k, v) => v ? `<div><span class="k">${k}</span>${esc(v)}</div>` : '';
+  function render() {
+    const q = $('#q').value.trim().toLowerCase(), g = $('#g').value;
+    const list = people.filter(p => (!g || p.gender === g) &&
+      (!q || [p.name, p.job, p.work, p.region, p.edu, p.hobbies, p.mbti, p.intro, p.ideal].join(' ').toLowerCase().includes(q)));
+    $('#count').textContent = `${list.length}명`;
+    $('#grid').innerHTML = list.length ? list.map(p => `<div class="card">
+      <div class="top">${p.photo ? `<img class="av" src="${esc(p.photo)}" alt="">` : `<span class="av ${p.gender}">${esc(p.name.slice(0, 1))}</span>`}
+        <div><div class="name">${esc(p.name)}</div>
+        <div class="sub">${esc([p.gender === 'M' ? '남성' : '여성', yy(p), p.height ? p.height + 'cm' : '', p.mbti].filter(Boolean).join(' · '))}</div>
+        ${p.status ? `<span class="chip">${esc(p.status)}</span>` : ''}</div></div>
+      ${line('직업', p.job)}${line('회사', p.work)}${line('사는 곳', p.region)}${line('학력', p.edu)}${line('취미', p.hobbies)}
+      ${line('한마디', p.intro)}${line('원하는 상대', p.ideal)}
+    </div>`).join('') : '<p class="empty">조건에 맞는 프로필이 없어요.</p>';
+  }
+  $('#f').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = $('#f button'); btn.disabled = true; $('#err').textContent = '';
+    try {
+      people = await unlock($('#pw').value);
+      $('#lock').hidden = true; $('#app').hidden = false; render();
+    } catch (err) { $('#err').textContent = '비밀번호가 맞지 않아요.'; }
+    btn.disabled = false;
+  });
+  $('#q').addEventListener('input', render);
+  $('#g').addEventListener('change', render);
+})();</script>
+</body>
+</html>
